@@ -1,0 +1,56 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+	<head>	
+		<meta charset="utf-8">
+		<title>MyTrip</title>
+		<script type="text/javascript"    
+			src="https://maps.google.com/maps/api/js?sensor=true">
+		</script>
+		<script type="text/javascript">
+			function initialize(){    
+				var latlng = new google.maps.LatLng(-34.397, 150.644);
+				var myOptions = {zoom: 8, center: latlng, mapTypeId: google.maps.MapTypeId.ROADMAP};
+				var map = new google.maps.Map(document.getElementById("map"),myOptions);  
+			}
+		</script>
+	</head>
+	<body onload="initialize()">
+		<div id="header">
+			<div id="header_top">
+				<div id="header_left">
+					<img src="" alt="Tripist_logo">
+				</div>			
+				<div id="header_right">				clock				celender		
+				</div>
+			</div>
+			<div id="navbar">
+				<ul>
+					<li><a href="" class="selected">HOME</a></li>
+					<li><a href="">Home</a></li>				
+					<li><a href="">Trip</a></li>				
+					<li><a href="friends_page.html">Friends</a></li>
+					<li><a href="group_page.html">My Group</a></li>			
+				</ul>		
+			</div>	
+		</div>
+		<div id ="contents">
+			<div id ="trip_name">Trip Name</div>
+			<div id ="map">지도표시</div>
+			<div id ="countryncity">여행국가 및 도시</div>
+			<div id ="triptype">여행타입</div>
+			<div id ="schedule">세부 일정 시작 및 종료 일시</div>
+			<div id ="cost">비용표시</div>
+			<div id ="vihicle">이동수단</div>
+			<div id ="todo">todo list표시</div>
+			<div id ="button">
+				<input type="button" name="complete" value="complete">
+				<input type="button" name="yet" value="notnow">
+			</div>
+		</div>	
+		<div id = "ttable">	</div>		
+		<div id="footer">		
+			<p>사이트 소개 | 이용약관 | 개인정보취급방침 | 책임의 한계와 법적 고지 | 고객센터 </p>	
+			<p>		Copyright © Tripist		</p>	
+		</div>
+	</body>
+</html>
