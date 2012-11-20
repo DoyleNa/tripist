@@ -40,6 +40,28 @@ body {
   margin:0 10px 0 10px;
 }
 
+#user_trip{
+    height:400px;
+}
+
+#friend_list{
+  border-bottom: 2px solid #eaeaea;
+  height:200px;
+}
+
+#find_friend{
+  height:200px;
+}
+
+#group_list{
+  border-bottom: 2px solid #eaeaea;
+  height:200px;
+}
+
+#group_cd{
+  height:200px;
+}
+
 #footer { 
   border-top: 2px solid #eaeaea;
   border-bottom: 2px solid #eaeaea;
