@@ -40,6 +40,7 @@ body {
   margin:0 10px 0 10px;
 }
 
+<<<<<<< HEAD
 #user_trip{
     height:400px;
 }
@@ -62,6 +63,8 @@ body {
   height:200px;
 }
 
+=======
+>>>>>>> 50db4b952c6da8d1d7ae473801da1a86ef5a56c5
 #footer { 
   border-top: 2px solid #eaeaea;
   border-bottom: 2px solid #eaeaea;
