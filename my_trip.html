@@ -1,0 +1,77 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+	<head>	
+		<meta charset="utf-8">
+		<title>MyTrip</title>
+		<script type="text/javascript"    
+			src="https://maps.google.com/maps/api/js?sensor=true">
+		</script>
+		<script type="text/javascript">
+			function initialize(){    
+				var latlng = new google.maps.LatLng(-34.397, 150.644);
+				var myOptions = {zoom: 8, center: latlng, mapTypeId: google.maps.MapTypeId.ROADMAP};
+				var map = new google.maps.Map(document.getElementById("map"),myOptions);  
+			}
+		</script>
+		<link href="css/bootstrap.css" rel="stylesheet">
+	<style>
+    body {
+       padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+    }
+  </style>
+  <link href="css/bootstrap-responsive.css" rel="stylesheet">
+
+  <link rel="shortcut icon" href="../assets/ico/favicon.ico">
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
+  <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
+  <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
+  <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">
+</head>
+
+<body onload="initialize()">
+	
+	   <div class="navbar navbar-inverse navbar-fixed-top">
+     <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="#">TRIPIST</a>
+          <div class="nav-collapse collapse">
+            <ul class="nav">
+              <li class="active"><a href="home_page.html">HOME</a></li>
+              <li><a href="make_trip.html">TRIP</a></li>
+              <li><a href="friends_page.html">FRIENDS</a></li>
+              <li><a href="group_page.html">MYGROUP</a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+
+	
+		
+ <div class="span9">
+ 	<div class="hero-unit">	
+
+		<div id="contents">
+			<div id="trip_name">Trip Name</div>
+			<div id="map">지도표시</div>
+			<div id="countryncity">여행국가 및 도시</div>
+			<div id="triptype">여행타입</div>
+			<div id="schedule">세부 일정 시작 및 종료 일시</div>
+			<div id="cost">비용표시</div>
+			<div id="vihicle">이동수단</div>
+			<div id="todo">todo list표시</div>
+			<div id="button">
+				<input type="button" name="complete" value="complete">
+				<input type="button" name="yet" value="notnow">
+			</div>
+		</div>	
+ </div>
+</div>
+ 
+</body>
+</html>
