@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ko"> 
+<head>
+	<meta charset="utf-8">
+	<title>MAIN</title>
+	<link href="css/tripist.css" rel="stylesheet">
+	<link href="http://static.scripting.com/github/bootstrap2/css/bootstrap.css" rel="stylesheet">
+		<script src="http://static.scripting.com/github/bootstrap2/js/jquery.js"></script>
+		<script src="http://static.scripting.com/github/bootstrap2/js/bootstrap-modal.js"></script>
+		<style>
+			body {
+				width: 60%;
+				margin-left: auto;
+				margin-right: auto;
+				margin-top: 100px;
+				}
+			.divDemoBody p {
+				font-size: 18px;
+				line-height: 140%;
+				padding-top: 12px;
+				}
+			.divDialogElements input {
+				font-size: 18px;
+				padding: 3px; 
+				height: 32px; 
+				width: 500px; 
+				}
+			.divButton {
+				padding-top: 12px;
+				}
+			</style>
+		<script>
+			$(document).ready(function() {
+				$('#windowTitleDialog').bind('show', function () {
+					document.getElementById ("xlInput").value = document.title;
+					});
+				});
+			function closeDialog () {
+				$('#windowTitleDialog').modal('hide'); 
+				};
+			function okClicked () {
+				document.title = document.getElementById ("xlInput").value;
+				closeDialog ();
+				};
+			</script>
+		</head>
+
+</head>
+
+<body>
+
+<div id="wrap">
+	<div id="top">
+		<img src="img/top.jpg" alt="top_image">
+	</div>
+
+	<div id="body">
+  
+  	<div id="navbar">
+
+		<ul>
+			<li><a href="#">HOME</a></li>
+			<li><a href="#">TRIP</a></li>
+			<li><a href="#">FRIENDS</a></li>
+			<li><a href="#">MYGROUP</a></li>
+     		 </ul>
+	</div>
+	
+	<div id = "Main Text">
+		<h1>Hello!</h1>
+		<p> this home page is bblaahahaaaha</p>
+	
+		
+
+		<div class ="divButton" >
+			<a data-toggle ="modal" href ="#login" class = "btn btn- primary btn-large">LOG-IN</a>
+			<a data-toggle ="modal" href ="#join" class = "btn btn-primary btn-large">JOIN</a>
+		</div>
+ 	</div>
+	<div id="footer">
+		2012 MJU WEBPROGRAMMING A-1 reserved TRIPIST
+	</div>
+</div>
+<div class ="modal hide fade" id="login">
+			<div class ="modal-header">
+				<a href= "#" class ="close" data-dismiss ="modal">&times;</a>
+
+				<h2>LOG-IN</h2>
+			</div>
+			<div class  ="modal-body">
+			<ul>
+				<li>id:<input type ="text" name="id" /></li>
+				<li>pasword:<input type ="password" name= "pwd"/></li>
+			</ul>
+			</div>
+			<div class = "modal-footer">
+			<input type ="button" name ="loginBtn" value ="log-in"/>
+		</div>
+	</div>
+		<div class="modal hide fade" id="join">
+			<div class ="modal-header">
+				<a href ="#" class ="close" data-dismiss ="modal">&times;</a>
+
+			<h3>JOIN</h3>
+		</div>
+		<div class ="modal-body">
+			<p>회원가입을 위한 페이지 입니다</p>
+			<ul>
+				<li>username : <input type ="text" name="id" />
+					<input type ="button" value="중복 조회" />
+				</li>
+				<li>password : <input type = "password" name="pwd1"/></li>
+				<li>           <input type = "password" name="pwd2"/></li>
+				<li>location :<input type ="text" name ="location" /><input type= "button" name="locFindBtn" value="find"/><li>
+				<li>photo :<input tyep ="file" name="photo"/></li>
+
+			</ul>
+			</div>
+			<div class ="modal-footer">
+				<input type="button" name ="SinginBtn" value ="sign-in"/>
+			</div>
+
+
+		</div>
+		
+	</body>
+</html>
