@@ -1,77 +1,141 @@
-﻿<!DOCTYPE html>
-<html lang="ko">
-	<head>	
-		<meta charset="utf-8">
-		<title>MyTrip</title>
-		<script type="text/javascript"    
-			src="https://maps.google.com/maps/api/js?sensor=true">
-		</script>
-		<script type="text/javascript">
-			function initialize(){    
-				var latlng = new google.maps.LatLng(-34.397, 150.644);
-				var myOptions = {zoom: 8, center: latlng, mapTypeId: google.maps.MapTypeId.ROADMAP};
-				var map = new google.maps.Map(document.getElementById("map"),myOptions);  
-			}
-		</script>
-		<link href="css/bootstrap.css" rel="stylesheet">
-	<style>
-    body {
-       padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
-    }
-  </style>
-  <link href="css/bootstrap-responsive.css" rel="stylesheet">
+<!DOCTYPE html>
+<html lang="ko"> 
+<head>
+	<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+	<meta charset="utf-8">	
+	<title>Home</title>
+	<link href="css/tripist.css" rel="stylesheet">		
+	<style type="text/css">  html { height: 100% }  body {height: 100%; margin: 0px; padding: 0px }  #map_canvas {width:960px; height: 50%; margin: 0 auto; border-right: 3px solid #eaeaea; border-left: 3px solid #eaeaea;}</style>
+	<script type="text/javascript"    src="https://maps.google.com/maps/api/js?sensor=false"></script>
+	<script type="text/javascript">
+		var map;
+		var infowindow = new google.maps.InfoWindow();
+		var marker =[];
+		var geocoder;
+		var geocodemarker = [];
+		var areaA,areaB;
+		var cnt=0;
+		var redIcon = new google.maps.MarkerImage(
+		   	"http://labs.google.com/ridefinder/images/mm_20_red.png",
+		   	new google.maps.Size(12, 20),
+		   	new google.maps.Point(0, 0),
+		   	new google.maps.Point(6, 20)
+		);  //마커 이미지 설정
+		function initialize(){
+			var latlng = new google.maps.LatLng(37.5240220, 126.9265940);
+			var myOptions = {
+				zoom: 14,
+				center:latlng,
+				mapTypeId: google.maps.MapTypeId.ROADMAP   
+			};  //맵 형태와 위치 줌 설정
+			map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);   //id:map_canvas에 지도 표시
+			geocoder =  new google.maps.Geocoder();
+			google.maps.event.addListener(map, 'click', codeCoordinate);
+		//map에서 클릭했을때 이벤트 codeCoordinate 함수 불러옴 
+		}
+		function Setmarker(latLng) {
+			/*if (marker.length > 0)
+    	    {
+  				marker[0].setMap(null); 
+  			}
+  			//마커의 갯수를 판단하여 갯수가 0이 아니면 map에 마커를 표시하지 않고,
+  			//갯수가 0이면 마커를 map에 표시. 즉, 이는 다른 지점을 클릭할때 기존 마커를 제거하기 위함
+  			marker = [];
+  			marker.length = 0;
+  			//마커를 빈 배열로 생성, 마커 배열 갯수 0으로하여 초기화시킴
+  			*/
+   			marker.push(new google.maps.Marker({
+   			position: latLng,
+   			icon: redIcon,
+   			map: map
+  			} ));
+  			//마커 배열에 새로운 마커 객체를 push함수로 추가한다
+		} /*클릭한 지점에 마커를 표시 (마커는 배열에 계속 추가됨. 클릭마다 새로운 마커를 생성하기 위함) */
+		function codeAddress(event) {
+		 	if (geocodemarker.length > 0)
+ 			{
+  				for (var i=0;i<geocodemarker.length ;i++ )
+  				{
+   					geocodemarker[i].setMap(null);
+  				}
+  				geocodemarker =[];
+  				geocodemarker.length = 0;
+ 			}  //주소를 입력할때마다 마커를 매번 새로 나타나게 하기 위함
+ 			var address = document.getElementById("addr1").value;
+ 			//주소 입력창 id:addr1 에서 값을 받아옴       
 
-  <link rel="shortcut icon" href="../assets/ico/favicon.ico">
-  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
-  <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
-  <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
-  <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">
+ 			//지오코딩
+ 			geocoder.geocode( {'address': address}, function(results, status) {
+	  			if (status == google.maps.GeocoderStatus.OK)  //지오코딩 성공시
+	  			{
+	    			alert("조회갯수 : " + results.length);  //결과 갯수 표시
+	   				for(var i=0;i<results.length;i++)
+	   				{
+	    				map.setCenter(results[i].geometry.location);
+	    				areaB = results[i].geometry.location;
+	    				geocodemarker.push(new google.maps.Marker({
+	     				center: results[i].geometry.location,
+	     				position: results[i].geometry.location,
+	     				icon: redIcon,
+	     				map: map
+	    				}));  //결과 갯수만큼 마커 표시
+	   				} 
+
+	  			}else{ alert("지오코딩 실패: " + status); }
+ 			});
+		}
+		//클릭시 이벤트 좌표에 해당하는 주소 반환
+		function codeCoordinate(event) {
+ 			Setmarker(event.latLng);  //그 위치에 마커 표시
+ 			areaA = event.latLng;
+ 			//좌표를 주소로 바꾸기
+ 			geocoder.geocode({'latLng' : event.latLng}, function(results, status) {
+  				if (status == google.maps.GeocoderStatus.OK)  { //바꾸기 성공했다면
+   					if (results[1]) //값이 있다면
+   					{   						
+    					infowindow.setContent(results[1].formatted_address); //정보창에 주소형식으로 값넣음
+    					infowindow.open(map,marker[cnt]); //정보창 표시
+    					cnt++;      
+   					}
+  				}
+ 			});
+		}
+		function gogo(){
+  			window.location.href="test3.jsp?aa="+areaA+"&bb="+areaB;
+		}
+	</script>
 </head>
 
 <body onload="initialize()">
-	
-	   <div class="navbar navbar-inverse navbar-fixed-top">
-     <div class="navbar-inner">
-        <div class="container">
-          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </a>
-          <a class="brand" href="#">TRIPIST</a>
-          <div class="nav-collapse collapse">
-            <ul class="nav">
-              <li class="active"><a href="home_page.html">HOME</a></li>
-              <li><a href="make_trip.html">TRIP</a></li>
-              <li><a href="friends_page.html">FRIENDS</a></li>
-              <li><a href="group_page.html">MYGROUP</a></li>
-            </ul>
-          </div><!--/.nav-collapse -->
-        </div>
-      </div>
-    </div>
-
-	
-		
- <div class="span9">
- 	<div class="hero-unit">	
-
-		<div id="contents">
-			<div id="trip_name">Trip Name</div>
-			<div id="map">지도표시</div>
-			<div id="countryncity">여행국가 및 도시</div>
-			<div id="triptype">여행타입</div>
-			<div id="schedule">세부 일정 시작 및 종료 일시</div>
-			<div id="cost">비용표시</div>
-			<div id="vihicle">이동수단</div>
-			<div id="todo">todo list표시</div>
-			<div id="button">
-				<input type="button" name="complete" value="complete">
-				<input type="button" name="yet" value="notnow">
-			</div>
-		</div>	
- </div>
-</div>
- 
+	<div id="wrap" width="100%" height="100%">
+		<div id="top">
+			<img src="img/top.jpg" alt="top_image">
+		</div>
+	  	<div id="navbar">
+			<ul>
+				<li><a href="home_page.html">HOME</a></li>
+				<li><a href="my_trip(수정).html">TRIP</a></li>
+				<li><a href="friends_page.html">FRIENDS</a></li>
+				<li><a href="group_page.html">MYGROUP</a></li>
+	     	 </ul>
+		</div>		
+	</div>
+	<div id="map_canvas"></div>
+	<div id="container">	
+		<div id ="countryncity">여행국가 및 도시</div>
+		<div id ="triptype">여행타입</div>
+		<div id ="schedule">세부 일정 시작 및 종료 일시</div>
+		<div id ="cost">비용표시</div>
+		<div id ="vihicle">이동수단</div>
+		<div id ="todo">todo list표시</div>
+		<div id ="button">
+		<input type="button" name="complete" value="complete">
+		<input type="button" name="yet" value="notnow">
+		</div>			
+		<div id = "ttable">	</div>
+	</div>
+	<div id="footer">
+				2012 MJU WEBPROGRAMMING A-1 reserved TRIPIST
+	</div>
 </body>
 </html>
